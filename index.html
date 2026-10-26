@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Northgate Bookkeeping &amp; Payroll</title>
+<meta name="description" content="Bookkeeping, payroll and accounting setup for small businesses and self-employed people.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --tint: #EDF2EE;
+    --ink: #1B2622;
+    --muted: #55645D;
+    --green: #17392F;
+    --green-ink: #FFFFFF;
+    --brass: #A87A22;
+    --line: #D3DBD6;
+    --field: #FFFFFF;
+    --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --sans: "Source Sans 3", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #101915; --tint: #17231E; --ink: #E6EDE8; --muted: #A5B4AB;
+      --green: #2E6B58; --green-ink: #FFFFFF; --brass: #D7A94B; --line: #2C3D35; --field: #1D2B25;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #101915; --tint: #17231E; --ink: #E6EDE8; --muted: #A5B4AB;
+    --green: #2E6B58; --green-ink: #FFFFFF; --brass: #D7A94B; --line: #2C3D35; --field: #1D2B25;
+  }
+  html { scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 90px); }
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1.125rem/1.65 var(--sans); }
+  h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; line-height: 1.15; color: var(--ink); }
+  p { margin: 0 0 1rem; }
+  a { color: var(--green); }
+  :root[data-theme="dark"] a, :root:not([data-theme="light"]) a { }
+  :focus-visible { outline: 3px solid var(--brass); outline-offset: 2px; }
+  .wrap { width: min(1080px, 100% - 2.5rem); margin-inline: auto; }
+
+  .topline { background: var(--green); color: var(--green-ink); font-size: .95rem; }
+  .topline .wrap { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; padding: .5rem 0; }
+  .topline a { color: var(--green-ink); text-decoration: none; font-weight: 600; }
+
+  header.site { border-bottom: 1px solid var(--line); background: var(--bg); position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; }
+  .bar { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: .9rem 0; }
+  .brand { text-decoration: none; color: var(--ink); font: 700 1.5rem var(--serif); letter-spacing: -.01em; }
+  .brand span { color: var(--brass); }
+  nav { display: flex; gap: 1.5rem; flex-wrap: wrap; font-size: 1rem; font-weight: 500; }
+  nav a { color: var(--ink); text-decoration: none; padding: .2rem 0; border-bottom: 2px solid transparent; }
+  nav a:hover { border-bottom-color: var(--brass); }
+
+  .btn { display: inline-block; background: var(--green); color: var(--green-ink); text-decoration: none; font: 600 1.05rem var(--sans); padding: .8rem 1.4rem; border: 0; border-radius: 3px; cursor: pointer; }
+  .btn:hover { filter: brightness(1.12); }
+  .btn.plain { background: transparent; color: var(--green); border: 1.5px solid var(--green); }
+  :root[data-theme="dark"] .btn.plain { color: var(--ink); border-color: var(--ink); }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .btn.plain { color: var(--ink); border-color: var(--ink); } }
+
+  .hero { padding: clamp(2.5rem, 6vw, 5rem) 0; }
+  .hero .wrap { display: grid; grid-template-columns: 1.6fr 1fr; gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+  .hero h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); max-width: 16ch; }
+  .hero p.lead { font-size: 1.25rem; margin-top: 1.25rem; max-width: 34rem; color: var(--muted); }
+  .hero .actions { display: flex; gap: .75rem; flex-wrap: wrap; margin-top: 1.75rem; }
+  .contactbox { background: var(--tint); border-left: 4px solid var(--brass); padding: 1.5rem 1.6rem; }
+  .contactbox h2 { font-size: 1.25rem; margin-bottom: .75rem; }
+  .contactbox .phone { font: 700 1.6rem var(--serif); text-decoration: none; display: block; margin-bottom: .5rem; }
+  .contactbox p { margin-bottom: .5rem; font-size: 1rem; color: var(--muted); }
+
+  section { padding: clamp(2.5rem, 5vw, 4.25rem) 0; }
+  section.tint { background: var(--tint); }
+  h2.title { font-size: clamp(1.7rem, 3.2vw, 2.3rem); margin-bottom: 1.5rem; }
+  .narrow { max-width: 42rem; }
+
+  dl.services { margin: 0; display: grid; grid-template-columns: 15rem 1fr; column-gap: 2.5rem; }
+  dl.services dt { font: 600 1.25rem var(--serif); padding: 1.15rem 0; border-top: 1px solid var(--line); }
+  dl.services dd { margin: 0; padding: 1.15rem 0; border-top: 1px solid var(--line); }
+  dl.services dt:last-of-type, dl.services dd:last-of-type { border-bottom: 1px solid var(--line); }
+
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 4rem); }
+  .two h3 { font-size: 1.3rem; margin-bottom: .6rem; }
+
+  .qa { margin-bottom: 1.6rem; max-width: 44rem; }
+  .qa h3 { font-size: 1.2rem; margin-bottom: .3rem; }
+
+  .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: clamp(2rem, 5vw, 4rem); }
+  address { font-style: normal; }
+  address p { margin-bottom: .9rem; }
+  address strong { display: block; font-weight: 600; }
+  form { display: grid; gap: 1rem; }
+  label { display: grid; gap: .3rem; font-weight: 600; font-size: 1rem; }
+  input, select, textarea { font: 400 1.05rem var(--sans); color: var(--ink); background: var(--field); border: 1px solid #8A9A91; border-radius: 3px; padding: .7rem .8rem; width: 100%; }
+  textarea { min-height: 110px; resize: vertical; }
+  .thanks { display: none; padding: 1rem 1.2rem; border-left: 4px solid var(--brass); background: var(--tint); }
+  .thanks.show { display: block; }
+
+  footer { background: var(--green); color: var(--green-ink); padding: 2rem 0; font-size: .95rem; }
+  footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .75rem; }
+  footer p { margin: 0; opacity: .9; }
+
+  @media (max-width: 820px) {
+    .hero .wrap, .two, .contact-grid { grid-template-columns: 1fr; }
+    dl.services { grid-template-columns: 1fr; }
+    dl.services dt { padding-bottom: 0; border-bottom: 0 !important; }
+    dl.services dd { border-top: 0; padding-top: .3rem; }
+    nav { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topline">
+  <div class="wrap">
+    <span>Now taking on new bookkeeping and payroll clients</span>
+    <span>Call <a href="tel:5550100123">(555) 010-0123</a></span>
+  </div>
+</div>
+
+<header class="site">
+  <div class="wrap bar">
+    <a class="brand" href="#top">Northgate<span> Bookkeeping</span></a>
+    <nav aria-label="Main">
+      <a href="#services">Services</a>
+      <a href="#about">About</a>
+      <a href="#working">Working together</a>
+      <a href="#faq">Questions</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <h1>Bookkeeping and payroll for small businesses</h1>
+        <p class="lead">We keep your books accurate and your payroll on time. When you have a question, you talk to the person who actually does your work.</p>
+        <div class="actions">
+          <a class="btn" href="#contact">Schedule a free consultation</a>
+          <a class="btn plain" href="#services">What we do</a>
+        </div>
+      </div>
+      <aside class="contactbox" aria-label="Contact details">
+        <h2>Talk to us</h2>
+        <a class="phone" href="tel:5550100123">(555) 010-0123</a>
+        <p>hello@northgatebookkeeping.com</p>
+        <p>Monday to Friday, 8:30 am to 5:30 pm. We return calls the same business day.</p>
+      </aside>
+    </div>
+  </div>
+
+  <section id="services" class="tint">
+    <div class="wrap">
+      <h2 class="title">Services</h2>
+      <dl class="services">
+        <dt>Bookkeeping</dt>
+        <dd>We categorize your transactions, reconcile your bank and card accounts each month, and send you a profit and loss statement and balance sheet you can read without an accounting degree.</dd>
+        <dt>Payroll</dt>
+        <dd>Pay runs, tax withholding and deposits, quarterly filings, and W-2 and 1099 forms at year end.</dd>
+        <dt>Setup and cleanup</dt>
+        <dd>Starting a new business, switching accounting software, or catching up on months of unreconciled books. We'll get you to a clean starting point.</dd>
+      </dl>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="wrap two">
+      <div>
+        <h2 class="title">About Northgate</h2>
+        <p>Northgate Bookkeeping is a small firm. We chose to stay that way so every client gets consistent attention and a direct line to the person handling their file.</p>
+        <p>Most of our clients are owner-run businesses: contractors, restaurants, medical and dental practices, online sellers and consultants. Many came to us after a year of shoeboxes, spreadsheets, or a bookkeeper who stopped returning calls.</p>
+      </div>
+      <div>
+        <h3>Who we work with</h3>
+        <p>Businesses with anywhere from one owner to about thirty employees, plus freelancers and sole proprietors.</p>
+        <h3>Software we use</h3>
+        <p>QuickBooks Online, Xero and FreshBooks. If you already have a system, we'll work in it.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="working" class="tint">
+    <div class="wrap narrow">
+      <h2 class="title">What working together looks like</h2>
+      <p><strong>We start with a call.</strong> It's free, it runs about half an hour, and you don't need to prepare anything. We ask about your business and look at what you have now.</p>
+      <p><strong>You get a written quote.</strong> Monthly services have a flat fee based on how many transactions you have. One-time projects like cleanup and setup are priced up front. No hourly surprises.</p>
+      <p><strong>We take it from there.</strong> You give us access to your bank feeds and documents through a secure portal. After that, expect a set of financial statements each month and a call whenever you need one.</p>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <h2 class="title">Questions we hear a lot</h2>
+      <div class="qa"><h3>Can you help if my books are months behind?</h3><p>Yes. Catch-up work is common. We reconcile the backlog first, then move you to regular monthly service.</p></div>
+      <div class="qa"><h3>Is my information kept private?</h3><p>Documents are shared through an encrypted portal, accounts use two-step sign-in, and only the people working on your file can open it.</p></div>
+      <div class="qa"><h3>Do I need to live nearby?</h3><p>No. Most of our work is done online, and we're happy to meet in person when that's easier for you.</p></div>
+    </div>
+  </section>
+
+  <section id="contact" class="tint">
+    <div class="wrap contact-grid">
+      <div>
+        <h2 class="title">Contact</h2>
+        <address>
+          <p><strong>Phone</strong><a href="tel:5550100123">(555) 010-0123</a></p>
+          <p><strong>Email</strong>hello@northgatebookkeeping.com</p>
+          <p><strong>Office</strong>123 Main Street, Suite 200<br>Your City, ST 00000</p>
+          <p><strong>Hours</strong>Monday to Friday, 8:30 am to 5:30 pm</p>
+        </address>
+      </div>
+      <form id="f" novalidate>
+        <label>Name<input name="name" autocomplete="name" required></label>
+        <label>Email<input name="email" type="email" autocomplete="email" required></label>
+        <label>Phone (optional)<input name="phone" type="tel" autocomplete="tel"></label>
+        <label>I'm interested in
+          <select name="need">
+            <option>Bookkeeping</option>
+            <option>Payroll</option>
+            <option>Business setup or cleanup</option>
+            <option>Not sure yet</option>
+          </select>
+        </label>
+        <label>Message<textarea name="msg"></textarea></label>
+        <button class="btn" type="submit">Send message</button>
+        <p class="thanks" id="ok" role="status">Thank you. We'll be in touch within one business day.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>&copy; <span id="yr">2026</span> Northgate Bookkeeping &amp; Payroll</p>
+    <p>Bookkeeping &middot; Payroll &middot; Setup</p>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    document.getElementById('yr').textContent = new Date().getFullYear();
+    var f = document.getElementById('f'), ok = document.getElementById('ok');
+    f.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var n = f.elements.name, m = f.elements.email;
+      if (!n.value.trim()) { n.focus(); return; }
+      if (!/^\S+@\S+\.\S+$/.test(m.value)) { m.focus(); return; }
+      ok.classList.add('show');
+      f.reset();
+    });
+  })();
+</script>
+</body>
+</html>
